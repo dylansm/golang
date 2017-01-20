@@ -21,9 +21,7 @@ COPY no-pic.patch /
 RUN set -ex \
 	&& apk add --no-cache --virtual .build-deps \
 		bash \
-		gcc \
 		musl-dev \
-		openssl \
 		go \
 	\
 	&& export GOROOT_BOOTSTRAP="$(go env GOROOT)" \
@@ -44,6 +42,7 @@ ENV GOPATH /home/app/go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
 COPY go-wrapper /usr/local/bin/
 
 WORKDIR $GOPATH
