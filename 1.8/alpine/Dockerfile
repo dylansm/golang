@@ -41,10 +41,9 @@ RUN set -ex \
 ENV GOPATH /home/app/go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
-RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+RUN mkdir -p "$GOPATH/src" "$GOPATH/pkg" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 
 COPY go-wrapper /usr/local/bin/
 
 WORKDIR $GOPATH
 ENV HOME=/home/app
-USER app
