@@ -3,15 +3,12 @@ services: docker
 
 env:
   - VERSION=1.8 VARIANT=
-  - VERSION=1.8 VARIANT=wheezy
+  - VERSION=1.8 VARIANT=stretch
   - VERSION=1.8 VARIANT=alpine
   - VERSION=1.7 VARIANT=
   - VERSION=1.7 VARIANT=wheezy
   - VERSION=1.7 VARIANT=alpine
   - VERSION=1.7 VARIANT=alpine3.5
-  - VERSION=1.6 VARIANT=
-  - VERSION=1.6 VARIANT=wheezy
-  - VERSION=1.6 VARIANT=alpine
 
 install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
@@ -22,10 +19,10 @@ before_script:
   - image="$(awk '$1 == "FROM" { print $2; exit }' onbuild/Dockerfile)${VARIANT:+-$VARIANT}"
 
 script:
-  - docker build -t "$image" "${VARIANT:-.}"
+  - travis_retry docker build -t "$image" "${VARIANT:-.}"
   - ~/official-images/test/run.sh "$image"
 # the "onbuild" variant has to happen with the base variant because it's FROM it
-  - true && [ "$VARIANT" ] || docker build -t "${image}-onbuild" onbuild
+  - true && [ "$VARIANT" ] || travis_retry docker build -t "${image}-onbuild" onbuild
 
 after_script:
   - docker images

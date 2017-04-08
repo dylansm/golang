@@ -11,9 +11,9 @@ RUN addgroup app && adduser -h /home/app -s /bin/sh -D -G app app && \
     sqlite-dev \
     ca-certificates
 
-ENV GOLANG_VERSION 1.8rc1
+ENV GOLANG_VERSION 1.8.1
 ENV GOLANG_SRC_URL https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz
-ENV GOLANG_SRC_SHA256 aa25758b754369018c507bbf646dda7839a41ffe4fd85a014c9704d7d8720dda
+ENV GOLANG_SRC_SHA256 33daf4c03f86120fdfdc66bddf6bfff4661c7ca11c5da473e537f4d69b470e57
 
 # https://golang.org/issue/14851
 COPY no-pic.patch /
